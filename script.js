@@ -21,7 +21,6 @@ let paddle2Down = false;
 let player1Score = 0;
 let player2Score = 0;
 const winningScore = 10;
-let gameOver = false;
 
 function drawPaddle(x, y) {
     ctx.fillStyle = '#000';
@@ -44,7 +43,6 @@ function drawScores() {
 }
 
 function moveBall() {
-    if (gameOver) return;
 
     ballX += ballSpeedX;
     ballY += ballSpeedY;
@@ -71,10 +69,28 @@ function moveBall() {
         }
     }
 
-    if (player1Score >= winningScore || player2Score >= winningScore) {
-        gameOver = true;
-        alert(`Player ${player1Score >= winningScore ? '1' : '2'} wins!`);
-        window.location.reload();
+    const winner = calculateWinner(player1Score, player2Score, winningScore);
+    if (winner !== 0) {
+        if (winner === 1) {
+            alert('Player 1 Wins!');
+        } else {
+            alert('Player 2 Wins!');
+        }
+        resetBall();
+        player1Score = 0;
+        player2Score = 0;
+        return;
+    }
+
+}
+
+function calculateWinner(player1Score, player2Score, winningScore) {
+    if (player1Score >= winningScore) {
+        return 1;
+    } else if (player2Score >= winningScore) {
+        return 2;
+    } else {
+        return 0;
     }
 }
 
@@ -134,4 +150,5 @@ document.addEventListener('keyup', (e) => {
     }
 });
 
+draw();
 draw();
