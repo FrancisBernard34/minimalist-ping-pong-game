@@ -70,7 +70,7 @@ function moveBall() {
 
     if (player1Score >= winningScore || player2Score >= winningScore) {
         alert(`Player ${player1Score >= winningScore ? '1' : '2'} wins!`);
-        document.location.reload();
+        window.location.reload();
     }
 }
 
