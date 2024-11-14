@@ -1,12 +1,49 @@
+/* Default Light Mode */
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
+    transition: background-color 0.3s ease;
 }
 
 canvas {
     border: 1px solid #000;
+}
+
+/* Button Styling */
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #000;
+    color: #fff;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #333;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212; /* Dark background */
+}
+
+body.dark-mode canvas {
+    border-color: #fff; /* White border for contrast */
+}
+
+body.dark-mode button {
+    background-color: #fff; /* Light button in dark mode */
+    color: #000; /* Dark text on button */
+}
+
+body.dark-mode button:hover {
+    background-color: #e0e0e0; /* Slightly lighter hover effect */
 }
