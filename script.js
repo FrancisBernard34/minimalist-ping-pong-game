@@ -12,6 +12,12 @@ let ballY = canvas.height / 2;
 let ballSpeedX = 2;
 let ballSpeedY = 2;
 
+const paddleSpeed = 5;
+let paddle1Up = false;
+let paddle1Down = false;
+let paddle2Up = false;
+let paddle2Down = false;
+
 function drawPaddle(x, y) {
     ctx.fillStyle = '#000';
     ctx.fillRect(x, y, paddleWidth, paddleHeight);
@@ -56,24 +62,52 @@ function resetBall() {
     ballSpeedX = -ballSpeedX;
 }
 
+function updatePaddles() {
+    if (paddle1Up && paddle1Y > 0) {
+        paddle1Y -= paddleSpeed;
+    }
+    if (paddle1Down && paddle1Y < canvas.height - paddleHeight) {
+        paddle1Y += paddleSpeed;
+    }
+    if (paddle2Up && paddle2Y > 0) {
+        paddle2Y -= paddleSpeed;
+    }
+    if (paddle2Down && paddle2Y < canvas.height - paddleHeight) {
+        paddle2Y += paddleSpeed;
+    }
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawPaddle(0, paddle1Y);
     drawPaddle(canvas.width - paddleWidth, paddle2Y);
     drawBall();
     moveBall();
+    updatePaddles();
     requestAnimationFrame(draw);
 }
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'w') {
-        paddle1Y -= 20;
+        paddle1Up = true;
     } else if (e.key === 's') {
-        paddle1Y += 20;
+        paddle1Down = true;
     } else if (e.key === 'ArrowUp') {
-        paddle2Y -= 20;
+        paddle2Up = true;
     } else if (e.key === 'ArrowDown') {
-        paddle2Y += 20;
+        paddle2Down = true;
+    }
+});
+
+document.addEventListener('keyup', (e) => {
+    if (e.key === 'w') {
+        paddle1Up = false;
+    } else if (e.key === 's') {
+        paddle1Down = false;
+    } else if (e.key === 'ArrowUp') {
+        paddle2Up = false;
+    } else if (e.key === 'ArrowDown') {
+        paddle2Down = false;
     }
 });
 
