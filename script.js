@@ -21,6 +21,7 @@ let paddle2Down = false;
 let player1Score = 0;
 let player2Score = 0;
 const winningScore = 10;
+let gameOver = false;
 
 function drawPaddle(x, y) {
     ctx.fillStyle = '#000';
@@ -43,6 +44,8 @@ function drawScores() {
 }
 
 function moveBall() {
+    if (gameOver) return;
+
     ballX += ballSpeedX;
     ballY += ballSpeedY;
 
@@ -69,6 +72,7 @@ function moveBall() {
     }
 
     if (player1Score >= winningScore || player2Score >= winningScore) {
+        gameOver = true;
         alert(`Player ${player1Score >= winningScore ? '1' : '2'} wins!`);
         window.location.reload();
     }
