@@ -67,7 +67,7 @@ body.dark-mode button:hover {
 /* For screens smaller than 600px (mobile phones) */
 @media (max-width: 600px) {
     canvas {
-        width: 100vw; /* Full width on mobile devices */
+        width: 80vw; /* Full width on mobile devices */
         height: auto; /* Maintain aspect ratio */
         border-width: 1px; /* Thinner border for mobile devices */
         margin-bottom: 20px; /* Add some space below the canvas */
@@ -77,5 +77,18 @@ body.dark-mode button:hover {
         padding: 6px 12px; /* Even smaller padding for mobile screens */
         font-size: 12px; /* Smaller font size for mobile buttons */
         margin-top: 10px; /* Reduce space between canvas and button */
+    }
+}
+
+/* For screens smaller than 400px (very small devices) */
+@media (max-width: 400px) {
+    canvas {
+        width: 75vw; /* Even smaller width for very small screens */
+        border-width: 0.5px; /* Even thinner border for very small screens */
+    }
+
+    button {
+        padding: 4px 8px; /* Even smaller padding for very small screens */
+        font-size: 10px; /* Smallest font size for very small buttons */
     }
 }

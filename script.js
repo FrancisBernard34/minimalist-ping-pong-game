@@ -161,6 +161,11 @@ document.addEventListener('keyup', (e) => {
 const darkModeToggleBtn = document.getElementById('darkModeToggle');
 darkModeToggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
 });
 
+// Load Dark Mode State from Local Storage if it exists
+if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
+}
 draw();
