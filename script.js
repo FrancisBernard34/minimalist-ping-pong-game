@@ -24,6 +24,9 @@ const winningScore = 10;
 
 function drawPaddle(x, y) {
     ctx.fillStyle = '#000';
+    if (document.body.classList.contains('dark-mode')) {
+        ctx.fillStyle = '#fff'; // White paddles in dark mode
+    }
     ctx.fillRect(x, y, paddleWidth, paddleHeight);
 }
 
@@ -31,19 +34,23 @@ function drawBall() {
     ctx.beginPath();
     ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
     ctx.fillStyle = '#000';
+    if (document.body.classList.contains('dark-mode')) {
+        ctx.fillStyle = '#fff'; // White ball in dark mode
+    }
     ctx.fill();
-    ctx.closePath();
 }
 
 function drawScores() {
     ctx.font = '48px Arial';
     ctx.fillStyle = '#000';
+    if (document.body.classList.contains('dark-mode')) {
+        ctx.fillStyle = '#fff'; // White scores in dark mode
+    }
     ctx.fillText(player1Score, canvas.width / 4, 50);
-    ctx.fillText(player2Score, 3 * canvas.width / 4, 50);
+    ctx.fillText(player2Score, (3 * canvas.width) / 4, 50);
 }
 
 function moveBall() {
-
     ballX += ballSpeedX;
     ballY += ballSpeedY;
 
@@ -97,7 +104,7 @@ function calculateWinner(player1Score, player2Score, winningScore) {
 function resetBall() {
     ballX = canvas.width / 2;
     ballY = canvas.height / 2;
-    ballSpeedX = -ballSpeedX;
+    ballSpeedX *= -1; // Reverse direction
 }
 
 function updatePaddles() {
@@ -150,5 +157,10 @@ document.addEventListener('keyup', (e) => {
     }
 });
 
-draw();
+// Dark Mode Toggle Logic
+const darkModeToggleBtn = document.getElementById('darkModeToggle');
+darkModeToggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
+
 draw();
