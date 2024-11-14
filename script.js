@@ -5,15 +5,16 @@ const paddleWidth = 10;
 const paddleHeight = 100;
 const ballRadius = 10;
 
-let paddleY = (canvas.height - paddleHeight) / 2;
+let paddle1Y = (canvas.height - paddleHeight) / 2;
+let paddle2Y = (canvas.height - paddleHeight) / 2;
 let ballX = canvas.width / 2;
 let ballY = canvas.height / 2;
 let ballSpeedX = 2;
 let ballSpeedY = 2;
 
-function drawPaddle() {
+function drawPaddle(x, y) {
     ctx.fillStyle = '#000';
-    ctx.fillRect(0, paddleY, paddleWidth, paddleHeight);
+    ctx.fillRect(x, y, paddleWidth, paddleHeight);
 }
 
 function drawBall() {
@@ -33,15 +34,19 @@ function moveBall() {
     }
 
     if (ballX - ballRadius < paddleWidth) {
-        if (ballY > paddleY && ballY < paddleY + paddleHeight) {
+        if (ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
             ballSpeedX = -ballSpeedX;
         } else {
             resetBall();
         }
     }
 
-    if (ballX + ballRadius > canvas.width) {
-        ballSpeedX = -ballSpeedX;
+    if (ballX + ballRadius > canvas.width - paddleWidth) {
+        if (ballY > paddle2Y && ballY < paddle2Y + paddleHeight) {
+            ballSpeedX = -ballSpeedX;
+        } else {
+            resetBall();
+        }
     }
 }
 
@@ -53,15 +58,23 @@ function resetBall() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawPaddle();
+    drawPaddle(0, paddle1Y);
+    drawPaddle(canvas.width - paddleWidth, paddle2Y);
     drawBall();
     moveBall();
     requestAnimationFrame(draw);
 }
 
-canvas.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    paddleY = e.clientY - rect.top - paddleHeight / 2;
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'w') {
+        paddle1Y -= 20;
+    } else if (e.key === 's') {
+        paddle1Y += 20;
+    } else if (e.key === 'ArrowUp') {
+        paddle2Y -= 20;
+    } else if (e.key === 'ArrowDown') {
+        paddle2Y += 20;
+    }
 });
 
 draw();
