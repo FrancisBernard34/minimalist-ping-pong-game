@@ -1,5 +1,5 @@
-function sum(a, b) {
-    return a + b;
-}
+const multiply = (a, b) => a * b;
 
-console.log(sum(1, 2));
+const result = multiply(2, 3);
+
+console.log(result);
