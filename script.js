@@ -18,6 +18,10 @@ let paddle1Down = false;
 let paddle2Up = false;
 let paddle2Down = false;
 
+let player1Score = 0;
+let player2Score = 0;
+const winningScore = 10;
+
 function drawPaddle(x, y) {
     ctx.fillStyle = '#000';
     ctx.fillRect(x, y, paddleWidth, paddleHeight);
@@ -29,6 +33,13 @@ function drawBall() {
     ctx.fillStyle = '#000';
     ctx.fill();
     ctx.closePath();
+}
+
+function drawScores() {
+    ctx.font = '48px Arial';
+    ctx.fillStyle = '#000';
+    ctx.fillText(player1Score, canvas.width / 4, 50);
+    ctx.fillText(player2Score, 3 * canvas.width / 4, 50);
 }
 
 function moveBall() {
@@ -43,6 +54,7 @@ function moveBall() {
         if (ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
             ballSpeedX = -ballSpeedX;
         } else {
+            player2Score++;
             resetBall();
         }
     }
@@ -51,8 +63,14 @@ function moveBall() {
         if (ballY > paddle2Y && ballY < paddle2Y + paddleHeight) {
             ballSpeedX = -ballSpeedX;
         } else {
+            player1Score++;
             resetBall();
         }
+    }
+
+    if (player1Score >= winningScore || player2Score >= winningScore) {
+        alert(`Player ${player1Score >= winningScore ? '1' : '2'} wins!`);
+        document.location.reload();
     }
 }
 
@@ -82,6 +100,7 @@ function draw() {
     drawPaddle(0, paddle1Y);
     drawPaddle(canvas.width - paddleWidth, paddle2Y);
     drawBall();
+    drawScores();
     moveBall();
     updatePaddles();
     requestAnimationFrame(draw);
