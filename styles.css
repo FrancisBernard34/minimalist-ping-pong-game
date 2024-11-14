@@ -45,5 +45,37 @@ body.dark-mode button {
 }
 
 body.dark-mode button:hover {
-    background-color: #e0e0e0; /* Slightly lighter hover effect */
+    background-color: #ddd; /* Slightly lighter hover effect */
+}
+
+/* Responsive Design */
+
+/* For screens smaller than 900px (tablets) */
+@media (max-width: 900px) {
+    canvas {
+        width: 90vw; /* Make the canvas take up 90% of the viewport width */
+        height: auto; /* Maintain aspect ratio */
+        border-width: 2px; /* Slightly thinner border for smaller screens */
+    }
+
+    button {
+        padding: 8px 16px; /* Smaller padding for buttons on smaller screens */
+        font-size: 14px; /* Adjust font size for better readability */
+    }
+}
+
+/* For screens smaller than 600px (mobile phones) */
+@media (max-width: 600px) {
+    canvas {
+        width: 100vw; /* Full width on mobile devices */
+        height: auto; /* Maintain aspect ratio */
+        border-width: 1px; /* Thinner border for mobile devices */
+        margin-bottom: 20px; /* Add some space below the canvas */
+    }
+
+    button {
+        padding: 6px 12px; /* Even smaller padding for mobile screens */
+        font-size: 12px; /* Smaller font size for mobile buttons */
+        margin-top: 10px; /* Reduce space between canvas and button */
+    }
 }
